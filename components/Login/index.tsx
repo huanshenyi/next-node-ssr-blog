@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { NextPage } from 'next';
+import CountDown from 'components/CountDown';
 import styles from './index.module.scss';
 
 interface Iprops {
@@ -12,16 +13,25 @@ const Login: NextPage<Iprops> = ({ isShow = false, onClose }) => {
     phone: '',
     verify: '',
   });
-  const handleClose = () => {};
-  const handelGetVerifyCode = () => {};
+  const [isShowVerifyCode, setIsShowVerifyCode] = useState(false);
+  const handleClose = () => {
+    onClose();
+  };
+  const handelGetVerifyCode = () => {
+    setIsShowVerifyCode(true);
+  };
   const handleLogin = () => {};
   const handleOAuthGithub = () => {};
-  const handelFormChange = (e: HTMLInputElement) => {
-   const {name, value} = e?.target;
-   setForm({
-     ...form,
-     [name]: value
-   })
+  const handelFormChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e?.target;
+    setForm({
+      ...form,
+      [name]: value,
+    });
+  };
+
+  const handelCountDownEnd = () => {
+    setIsShowVerifyCode(false);
   };
 
   return isShow ? (
@@ -49,7 +59,11 @@ const Login: NextPage<Iprops> = ({ isShow = false, onClose }) => {
             onChange={handelFormChange}
           />
           <span className={styles.verifyCode} onClick={handelGetVerifyCode}>
-            コード取得
+            {isShowVerifyCode ? (
+              <CountDown time={10} onEnd={handelCountDownEnd} />
+            ) : (
+              'コード取得'
+            )}
           </span>
         </div>
         <div className={styles.loginBtn} onClick={handleLogin}>
