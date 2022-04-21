@@ -16,6 +16,13 @@ const Login: NextPage<Iprops> = ({ isShow = false, onClose }) => {
   const handelGetVerifyCode = () => {};
   const handleLogin = () => {};
   const handleOAuthGithub = () => {};
+  const handelFormChange = (e: HTMLInputElement) => {
+   const {name, value} = e?.target;
+   setForm({
+     ...form,
+     [name]: value
+   })
+  };
 
   return isShow ? (
     <div className={styles.loginArea}>
@@ -31,6 +38,7 @@ const Login: NextPage<Iprops> = ({ isShow = false, onClose }) => {
           name="phone"
           placeholder="携帯番号入力"
           value={form.phone}
+          onChange={handelFormChange}
         />
         <div className={styles.verifyCodeArea}>
           <input
@@ -38,6 +46,7 @@ const Login: NextPage<Iprops> = ({ isShow = false, onClose }) => {
             name="verify"
             placeholder="確認コード入力"
             value={form.verify}
+            onChange={handelFormChange}
           />
           <span className={styles.verifyCode} onClick={handelGetVerifyCode}>
             コード取得
