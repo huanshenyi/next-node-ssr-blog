@@ -2,6 +2,8 @@ import { ChangeEvent, useState } from 'react';
 import { NextPage } from 'next';
 import CountDown from 'components/CountDown';
 import styles from './index.module.scss';
+import { message } from 'antd';
+import request from 'service/fetch';
 
 interface Iprops {
   isShow: boolean;
@@ -18,7 +20,12 @@ const Login: NextPage<Iprops> = ({ isShow = false, onClose }) => {
     onClose();
   };
   const handelGetVerifyCode = () => {
-    setIsShowVerifyCode(true);
+    if (!form?.phone) {
+      message.warning('携帯番号を入力してください');
+      return;
+    }
+    request.post('/api/user/sendVerifyCode');
+    // setIsShowVerifyCode(true);
   };
   const handleLogin = () => {};
   const handleOAuthGithub = () => {};
