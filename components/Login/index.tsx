@@ -24,8 +24,18 @@ const Login: NextPage<Iprops> = ({ isShow = false, onClose }) => {
       message.warning('携帯番号を入力してください');
       return;
     }
-    request.post('/api/user/sendVerifyCode');
-    // setIsShowVerifyCode(true);
+    request
+      .post('/api/user/sendVerifyCode', {
+        to: form?.phone,
+        templateId: 1,
+      })
+      .then((res: any) => {
+        if (res?.code === 0) {
+          setIsShowVerifyCode(true);
+        } else {
+          message.error(res?.meg || '何か');
+        }
+      });
   };
   const handleLogin = () => {};
   const handleOAuthGithub = () => {};
