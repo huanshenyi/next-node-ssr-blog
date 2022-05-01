@@ -37,7 +37,11 @@ const Login: NextPage<Iprops> = ({ isShow = false, onClose }) => {
         }
       });
   };
-  const handleLogin = () => {};
+  const handleLogin = () => {
+    if (!form.verify) {
+      console.log('null');
+    }
+  };
   const handleOAuthGithub = () => {};
   const handelFormChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e?.target;
