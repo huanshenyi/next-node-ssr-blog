@@ -33,14 +33,23 @@ const Login: NextPage<Iprops> = ({ isShow = false, onClose }) => {
         if (res?.code === 0) {
           setIsShowVerifyCode(true);
         } else {
-          message.error(res?.meg || '何か');
+          message.error(res?.meg || '未知エラー');
         }
       });
   };
   const handleLogin = () => {
-    if (!form.verify) {
-      console.log('null');
-    }
+    request
+      .post('/api/user/login', {
+        ...form,
+      })
+      .then((res: any) => {
+        if (res?.code === 0) {
+          // ログインok
+          onClose && onClose();
+        } else {
+          message.error(res?.msg || '未知のエラー');
+        }
+      });
   };
   const handleOAuthGithub = () => {};
   const handelFormChange = (e: ChangeEvent<HTMLInputElement>) => {
