@@ -10,12 +10,12 @@ export class UserAuth extends BaseEntity {
     @JoinColumn({name: 'user_id'})
     user!:User;
 
-    @Column('text',{nullable:true})
+    @Column('varchar',{nullable:true})
     identity_type!:string;
 
-    @Column('text',{nullable:true})
+    @Column('varchar',{nullable:true})
     identfier!:string;
 
-    @Column('text',{nullable:true})
+    @Column('varchar',{nullable:true})
     credential!:string;
 }

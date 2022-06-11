@@ -41,6 +41,7 @@ const Login: NextPage<Iprops> = ({ isShow = false, onClose }) => {
     request
       .post('/api/user/login', {
         ...form,
+        identity_type: 'phone',
       })
       .then((res: any) => {
         if (res?.code === 0) {
@@ -49,6 +50,9 @@ const Login: NextPage<Iprops> = ({ isShow = false, onClose }) => {
         } else {
           message.error(res?.msg || '未知のエラー');
         }
+      })
+      .catch((e) => {
+        console.log(e);
       });
   };
   const handleOAuthGithub = () => {};

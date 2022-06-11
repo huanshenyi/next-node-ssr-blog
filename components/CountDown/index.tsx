@@ -15,7 +15,7 @@ const CountDown: NextPage<Iprops> = ({ time, onEnd }) => {
         if (count === 0) {
           clearInterval(id);
           onEnd && onEnd();
-          return 0;
+          return count;
         }
         return count - 1;
       });
