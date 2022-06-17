@@ -4,6 +4,7 @@ import CountDown from 'components/CountDown';
 import styles from './index.module.scss';
 import { message } from 'antd';
 import request from 'service/fetch';
+import { useStore } from 'store/index';
 
 interface Iprops {
   isShow: boolean;
@@ -11,6 +12,7 @@ interface Iprops {
 }
 
 const Login: NextPage<Iprops> = ({ isShow = false, onClose }) => {
+  const store = useStore();
   const [form, setForm] = useState({
     phone: '',
     verify: '',
@@ -46,6 +48,7 @@ const Login: NextPage<Iprops> = ({ isShow = false, onClose }) => {
       .then((res: any) => {
         if (res?.code === 0) {
           // ログインok
+          store.user.setUserInfo(res?.data);
           onClose && onClose();
         } else {
           message.error(res?.msg || '未知のエラー');
