@@ -26,3 +26,11 @@ The `pages/api` directory is mapped to `/api/*`. Files in this directory are tre
 - Stylelint
 - prettier
 ```
+
+### ライブラリメモ
+
+- next-cookie フロントとサーバーサイドからcookie取得可能
+
+```
+npm install next-cookie
+```

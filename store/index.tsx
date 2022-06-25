@@ -1,5 +1,5 @@
 import React, { createContext, ReactElement, useContext } from 'react';
-import { useLocalObservable, enableStaticRendering } from 'mobx-react-lite'
+import { enableStaticRendering, useLocalObservable } from 'mobx-react-lite'
 import createStore, { IStore } from './rootStore';
 
 
@@ -9,7 +9,9 @@ interface IProps {
     children: ReactElement
 }
 
-enableStaticRendering(true);
+enableStaticRendering(!process
+    .browser
+    );
 
 const StoreContext = createContext({});
 

@@ -5,11 +5,14 @@ import { AppDataSource } from 'db/index';
 import { ISession } from 'pages/api/index';
 import { User } from 'db/entity/user';
 import { UserAuth } from 'db/entity/userAuth';
+import { setCookie } from 'utils/index';
+import { Cookie } from 'next-cookie';
 
 export default withIronSessionApiRoute(login, ironOptions);
 
 async function login(req: NextApiRequest, res: NextApiResponse) {
   const session: ISession = req.session;
+  const cookies = Cookie.fromApiRoute(req, res);
   const { phone = '', verify = '', identity_type = 'phone' } = req.body;
   const userRepo = await AppDataSource.getRepository(User);
   const userAuthRepo = await AppDataSource.getRepository(UserAuth);
@@ -34,6 +37,7 @@ async function login(req: NextApiRequest, res: NextApiResponse) {
       session.nickname = nickname;
       session.avatar = avatar;
       await session.save();
+      setCookie(cookies, { userId: id, nickname, avatar });
       res?.status(200).json({
         code: 0,
         msg: 'ログインok',
@@ -65,6 +69,7 @@ async function login(req: NextApiRequest, res: NextApiResponse) {
       session.nickname = nickname;
       session.avatar = avatar;
       await session.save();
+      setCookie(cookies, { userId: id, nickname, avatar });
       res?.status(200).json({
         code: 0,
         msg: 'ログインok',

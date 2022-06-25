@@ -5,6 +5,8 @@ import styles from './index.module.scss';
 import { message } from 'antd';
 import request from 'service/fetch';
 import { useStore } from 'store/index';
+import { Cookie } from 'next-cookie';
+import { observer } from 'mobx-react-lite';
 
 interface Iprops {
   isShow: boolean;
@@ -120,4 +122,4 @@ const Login: NextPage<Iprops> = ({ isShow = false, onClose }) => {
   ) : null;
 };
 
-export default Login;
+export default observer(Login);
