@@ -7,6 +7,8 @@ import request from 'service/fetch';
 import { useStore } from 'store/index';
 import { Cookie } from 'next-cookie';
 import { observer } from 'mobx-react-lite';
+import { UserAuth } from 'db/entity/userAuth';
+import { AppDataSource } from 'db/index';
 
 interface Iprops {
   isShow: boolean;
@@ -60,7 +62,15 @@ const Login: NextPage<Iprops> = ({ isShow = false, onClose }) => {
         console.log(e);
       });
   };
-  const handleOAuthGithub = () => {};
+  // client ID: 2c8411a1e277a1ccd6d4
+  const handleOAuthGithub = () => {
+    const githubClientID = '2c8411a1e277a1ccd6d4';
+    const redirectURL = 'http://localhost:3000/api/oauth/redirect';
+    // github開く
+    window.open(
+      `https://github.com/login/oauth/authorize?client_id=${githubClientID}&redirect_uri=${redirectURL}`
+    );
+  };
   const handelFormChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e?.target;
     setForm({
