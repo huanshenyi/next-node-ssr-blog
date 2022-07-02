@@ -9,6 +9,7 @@ import { Cookie } from 'next-cookie';
 import { observer } from 'mobx-react-lite';
 import { UserAuth } from 'db/entity/userAuth';
 import { AppDataSource } from 'db/index';
+import getConfig from 'next/config';
 
 interface Iprops {
   isShow: boolean;
@@ -64,9 +65,11 @@ const Login: NextPage<Iprops> = ({ isShow = false, onClose }) => {
   };
   // client ID: 2c8411a1e277a1ccd6d4
   const handleOAuthGithub = () => {
-    const githubClientID = '2c8411a1e277a1ccd6d4';
+    const { publicRuntimeConfig } = getConfig();
+    const githubClientID = publicRuntimeConfig.env.GITHUBCLIENTID;
+
     const redirectURL = 'http://localhost:3000/api/oauth/redirect';
-    // github開く
+    // // github開く
     window.open(
       `https://github.com/login/oauth/authorize?client_id=${githubClientID}&redirect_uri=${redirectURL}`
     );

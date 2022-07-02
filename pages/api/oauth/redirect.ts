@@ -7,6 +7,7 @@ import request from 'service/fetch';
 import { Cookie } from 'next-cookie';
 import { AppDataSource } from 'db/index';
 import { setCookie } from 'utils';
+import getConfig from 'next/config';
 
 export default withIronSessionApiRoute(redirect, ironOptions);
 // client ID: 2c8411a1e277a1ccd6d4
@@ -17,9 +18,9 @@ async function redirect(req: NextApiRequest, res: NextApiResponse) {
 
   // http://localhost:3000/api/oauth/redirect?code=xxx
   const { code } = req?.query || {};
-
-  const githubClientID = '2c8411a1e277a1ccd6d4';
-  const githubSecret = '6d486f2dc29620d51f87171a497145bd965a2b54';
+  const { publicRuntimeConfig } = getConfig();
+  const githubClientID = publicRuntimeConfig.env.GITHUBCLIENTID;
+  const githubSecret = publicRuntimeConfig.env.GITHUBSECRET;
   const url = `https://github.com/login/oauth/access_token?client_id=${githubClientID}&client_secret=${githubSecret}&code=${code}`;
 
   // githubログイントークン取得
