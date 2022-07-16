@@ -11,17 +11,26 @@ interface IProps {
 }
 
 function MyApp({ initialValue, Component, pageProps }: IProps) {
-  return (
-    <StoreProvider initialValue={initialValue}>
-      <Layout>
+  const renderLayout = () => {
+    if ((Component as any).layout === null) {
+      return <Component {...pageProps} />;
+    } else {
+      return (
+        <Layout>
         <Component {...pageProps} />
       </Layout>
+      )
+    }
+  };
+  return (
+    <StoreProvider initialValue={initialValue}>
+        {renderLayout()}
     </StoreProvider>
   );
 }
 
 MyApp.getInitialProps = async ({ ctx }: any) => {
-  const { userId, nickname, avatar } = ctx?.req.cookies || {};
+  const { userId, nickname, avatar } = ctx?.req?.cookies || {};
   return {
     initialValue: {
       // cookieにuserをセット

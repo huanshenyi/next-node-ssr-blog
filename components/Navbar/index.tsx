@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { NextPage } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Button, Avatar, Dropdown, Menu } from 'antd';
+import { Button, Avatar, Dropdown, Menu, message } from 'antd';
 import { useStore } from 'store/index';
 import styles from './index.module.scss';
 import { navs } from 'components/Navbar/config';
@@ -14,9 +14,18 @@ import { observer } from 'mobx-react-lite';
 const Navbar: NextPage = () => {
   const store = useStore();
   const { userId, avatar } = store.user.userInfo;
-  const { pathname } = useRouter();
+  const { pathname, push } = useRouter();
   const [isShowLogin, setIsShowLogin] = useState(false);
-  const handleGotoEditorPage = () => {};
+
+  // 記事追加
+  const handleGotoEditorPage = () => {
+    if (userId) {
+      push('/editor/new');
+    } else {
+      message.warning('ログインしてください');
+    }
+  };
+
   const handleLogin = () => {
     setIsShowLogin(true);
   };
@@ -24,8 +33,10 @@ const Navbar: NextPage = () => {
   const handleClose = () => {
     setIsShowLogin(false);
   };
-
-  const handleGotoPersonalPage = () => {};
+  // プロフィールページ
+  const handleGotoPersonalPage = () => {
+    push(`/user/${userId}`);
+  };
 
   const handleLogout = () => {
     request.post('/api/user/logout').then((res: any) => {

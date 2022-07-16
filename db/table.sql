@@ -13,3 +13,14 @@ create table user_auths(
  identfier VARCHAR(255),
  credential VARCHAR(255)
 );
+
+create table articles(
+ id int PRIMARY KEY AUTO_INCREMENT not null,
+ title VARCHAR(255),
+ content TEXT,
+ views int,
+ is_delete bit,
+ create_time DATETIME,
+ update_time DATETIME,
+ user_id int
+)

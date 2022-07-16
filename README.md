@@ -40,3 +40,10 @@ remotemysql
 ```
 npm install next-cookie
 ```
+
+- uiwjs/react-md-editor マークダンエディッター
+
+```
+npm install next-remove-imports
+npm install @uiw/react-md-editor@v3.6.0
+```
