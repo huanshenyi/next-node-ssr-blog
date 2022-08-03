@@ -5,4 +5,12 @@ export const EXCEPTION_ARTICLE = {
     code: 2001,
     msg: 'post file',
   },
+  UPDATE_FAILED: {
+    code: 2002,
+    msg: 'update file',
+  },
+  Not_FOUND: {
+    code: 2003,
+    msg: 'not find',
+  },
 };

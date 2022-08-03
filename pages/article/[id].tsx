@@ -14,7 +14,7 @@ interface IProps {
   article: IArticle;
 }
 
-export async function getServerSideProps({ params }) {
+export async function getServerSideProps({ params }: any) {
   const articleId = params?.id;
   const articleRepo = await AppDataSource.getRepository(Article);
   const articleData = await articleRepo.findOne({
@@ -42,7 +42,7 @@ export async function getServerSideProps({ params }) {
 const ArticleDetail = (props: IProps) => {
   const { article } = props;
   const {
-    user: { nickname, avatar },
+    user: { nickname, avatar, id },
   } = article;
   const store = useStore();
   const loginUserInfo = store?.user?.userInfo;
@@ -60,7 +60,7 @@ const ArticleDetail = (props: IProps) => {
                 {format(new Date(article?.update_time), 'yyyy-MM-dd hh:mm:ss')}
               </div>
               <div>views{article?.views}</div>
-              {Number(loginUserInfo?.userId) === Number(article.user?.id) && (
+              {Number(loginUserInfo?.userId) === Number(id) && (
                 <Link href={`/editor/${article?.id}`}>編集</Link>
               )}
             </div>
