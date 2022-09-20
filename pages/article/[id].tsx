@@ -68,6 +68,8 @@ const ArticleDetail = (props: IProps) => {
         </div>
         <Markdown className={styles.markdown}>{article?.content}</Markdown>
       </div>
+      <div className={styles.divider}></div>
+      <div></div>
     </div>
   );
 };

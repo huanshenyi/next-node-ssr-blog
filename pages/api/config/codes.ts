@@ -14,3 +14,10 @@ export const EXCEPTION_ARTICLE = {
     msg: 'not find',
   },
 };
+
+export const EXCEPTION_COMMENT = {
+  PUBLISH_FAILED: {
+    code: 4001,
+    msg: 'post file',
+  },
+};
