@@ -34,3 +34,11 @@ CREATE TABLE `comments` (
   `article_id` int DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `tags` (
+  id int PRIMARY KEY AUTO_INCREMENT not null,
+  title VARCHAR(255),
+  icon VARCHAR(255),
+  follow_count int
+  article_count int
+);
